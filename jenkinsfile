@@ -1,44 +1,17 @@
 pipeline {
     agent any
 
-    environment {
-        GITHUB_REPO_URL = "https://github.com/iam-ganeshjadhav/E-Commerce-Spring-Boot-Application.git"
-        TARGET = "ubuntu@13.232.185.76"
-    }
-
     stages {
-
         stage('Checkout') {
             steps {
-                git url: "${GITHUB_REPO_URL}", branch: 'main'
+                git url: "https://github.com/iam-ganeshjadhav/E-Commerce-Spring-Boot-Application.git", branch: 'main'
             }
         }
 
-        stage('Build') {
+        stage('Show Files') {
             steps {
-                sh 'cd Ecom-BackEnd && mvn clean package -DskipTests'
+                sh 'ls -R .'
             }
-        }
-
-        stage('Deploy to EC2') {
-            steps {
-                sshagent(['node-key']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no $TARGET "sudo mkdir -p /opt/app"
-                    rsync -avz Ecom-BackEnd/target/*.jar $TARGET:/opt/app/app.jar
-                    ssh $TARGET "sudo systemctl restart ecommerce"
-                    '''
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }
