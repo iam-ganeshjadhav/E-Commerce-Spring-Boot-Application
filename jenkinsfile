@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'cd Backend && mvn clean package -DskipTests'
+                sh 'cd Ecom-BackEnd && mvn clean package -DskipTests'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
                 sshagent(['node-key']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no $TARGET "sudo mkdir -p /opt/app"
-                    rsync -avz Backend/target/*.jar $TARGET:/opt/app/app.jar
+                    rsync -avz Ecom-BackEnd/target/*.jar $TARGET:/opt/app/app.jar
                     ssh $TARGET "sudo systemctl restart ecommerce"
                     '''
                 }
