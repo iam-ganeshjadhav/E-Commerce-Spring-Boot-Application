@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_NAME = "E-commerce"
         GITHUB_REPO_URL = "https://github.com/iam-ganeshjadhav/E-Commerce-Spring-Boot-Application.git"
         TARGET = "ubuntu@13.232.185.76"
     }
@@ -17,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'cd E-Commerce && mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
@@ -26,7 +25,7 @@ pipeline {
                 sshagent(['node-key']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no $TARGET "sudo mkdir -p /opt/app"
-                    rsync -avz E-Commerce/target/*.jar $TARGET:/opt/app/app.jar
+                    rsync -avz target/*.jar $TARGET:/opt/app/app.jar
                     ssh $TARGET "sudo systemctl restart ecommerce"
                     '''
                 }
