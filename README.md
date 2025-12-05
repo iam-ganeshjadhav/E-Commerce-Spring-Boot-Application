@@ -10,6 +10,9 @@ The goal of this project is to demonstrate DevOps best practices, cloud automati
 
 ## 🏗️ Architecture
 
+![Jenk](IMG/4.png)
+
+
 
 Key Flow:
 GitHub → Jenkins → EC2 → RDS
@@ -379,9 +382,9 @@ http://<EC2_PUBLIC_IP>:8080/
 
 ## 📷 Screenshots
 
-![App Screenshot](images/app.png)
-![Terraform Output](images/terraform.png)
-![Jenkins Pipeline](images/jenkins.png)
+![App Screenshot](IMG/1.png)|jenkins Pipeline
+![Terraform Output](IMG/2.png)|Terraform Output
+![Jenkins Pipeline](IMG/3.png)|Github Repo
 
 
 ## 🎯 What I Learned
